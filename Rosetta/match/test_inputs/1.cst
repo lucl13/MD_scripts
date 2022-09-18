@@ -1,0 +1,29 @@
+CST::BEGIN
+  TEMPLATE::   ATOM_MAP: 1 atom_name: O4 C4 C3
+  TEMPLATE::   ATOM_MAP: 1 residue3: BGC
+
+  TEMPLATE::   ATOM_MAP: 2 atom_name:  NE2  CD   OE1
+  TEMPLATE::   ATOM_MAP: 2 residue3: GLN
+
+  CONSTRAINT:: distanceAB:   11.07   0.30 100.00  0        0
+  CONSTRAINT::    angle_A:  135.75  15.00 100.00  360.00   3
+  CONSTRAINT::    angle_B:  102.13  15.00 100.00  360.00   3
+  CONSTRAINT::  torsion_A:   91.06  15.00 100.00  360.00   3
+  CONSTRAINT::  torsion_B:  -62.17  15.00 100.00  360.00   3
+  CONSTRAINT:: torsion_AB: -166.77  15.00 100.00  360.00   3
+CST::END
+
+CST::BEGIN
+  TEMPLATE::   ATOM_MAP: 1 atom_name: O4 C4 C3
+  TEMPLATE::   ATOM_MAP: 1 residue3: BGC
+
+  TEMPLATE::   ATOM_MAP: 2 atom_name:  OE1  CD   OE2
+  TEMPLATE::   ATOM_MAP: 2 residue3: GLU
+
+  CONSTRAINT:: distanceAB:   14.28   0.30 100.00  0        0
+  CONSTRAINT::    angle_A:  142.74  15.00 100.00  360.00   3
+  CONSTRAINT::    angle_B:  144.64  15.00 100.00  360.00   3
+  CONSTRAINT::  torsion_A:  117.77  15.00 100.00  360.00   3
+  CONSTRAINT::  torsion_B:   76.18  15.00 100.00  360.00   3
+  CONSTRAINT:: torsion_AB: -134.11  15.00 100.00  360.00   3
+CST::END

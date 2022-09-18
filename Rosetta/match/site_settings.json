@@ -1,0 +1,5 @@
+{
+  "openbabel":"/Users/chenlin/opt/anaconda3/bin/obabel",
+  "molfile_to_params_script":"/usr/local/rosetta/main/source/scripts/python/public/molfile_to_params.py",
+  "matcher_app":"/usr/local/rosetta_mpi/main/source/bin/match.mpi.macosclangrelease"
+}
