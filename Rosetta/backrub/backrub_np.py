@@ -22,7 +22,7 @@ def runBackrub(pose, job_id):
     mm.set_chi(True)
     mm.set_jump(True)
 
-    OUTPUT_DIR = './ouput'
+    OUTPUT_DIR = './output_3/'
 
     backrub = pyrosetta.rosetta.protocols.backrub.BackrubProtocol()
     backrub.set_taskfactory(tf)
@@ -31,11 +31,11 @@ def runBackrub(pose, job_id):
 
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
-    pose.dump_pdb(f'{OUTPUT_DIR}/1_apo_1urp_backrubed_{job_id:5}.pdb')
+    pose.dump_pdb(f'{OUTPUT_DIR}/1_apo_1urp_backrubed_{int(job_id):05}.pdb')
 
     score_df = pd.DataFrame()
     score_dict = dict(pose.scores)
-    score_dict['description'] = f'backrub_{job_id:5}'
+    score_dict['description'] = f'backrub_{int(job_id):05}'
     score_df = score_df.append(score_dict, ignore_index=True)
     score_scv = f'{OUTPUT_DIR}/score_backub.csv'
     if os.path.isfile(score_scv):
@@ -75,14 +75,14 @@ def make_chunks(data: list, thread_count) -> dict:
 if __name__ == '__main__':
 
 
-    file ='1_apo_1urp.pdb'
-    n_sctrut = 1000
+    file ='1_apo_1urp_relaxed.pdb'
+    n_sctrut = 10000
 
     job_ids = [i for i in range(1, n_sctrut+1)]
-    chunks = make_chunks(job_ids, 4)
+    chunks = make_chunks(job_ids, 22)
     threads = []
 
-    for thread_num in range(4):
+    for thread_num in range(22):
         current_thread = multiprocessing.Process(target=runBackrubs, args=(file, chunks[thread_num]))
         threads.append(current_thread)
         current_thread.start()
