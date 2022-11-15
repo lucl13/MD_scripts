@@ -17,7 +17,7 @@ def if_job_finished(job):
         return False
 
 def run_NVT(i, name):
-    subprocess.run(f'gmx grompp -f nvt.mdp -c {i}_{name}_em.gro -r {i}_{name}_em.gro -p {i}_{name}_topol.top -o {i}_{name}_nvt.tpr -n index.ndx', shell=True) 
+    subprocess.run(f'gmx grompp -f nvt.mdp -c {i}_{name}_em.gro -r {i}_{name}_em.gro -p {i}_{name}_topol.top -o {i}_{name}_nvt.tpr -n {i}_{name}_index.ndx', shell=True) 
     p = subprocess.run(f'gmx mdrun -v -deffnm {i}_{name}_nvt', shell=True) 
     if p.returncode == 0:
         print(f'{i}_{name} NVT job Done!')
@@ -25,7 +25,7 @@ def run_NVT(i, name):
         raise Exception(f'{i}_{name} NVT job Exception !!!') 
 
 def run_NPT(i, name):
-    subprocess.run(f'gmx grompp -f npt.mdp -c {i}_{name}_nvt.gro -r {i}_{name}_nvt.gro -t {i}_{name}_nvt.cpt -p {i}_{name}_topol.top -o {i}_{name}_npt.tpr -maxwarn 1 -n index.ndx', shell=True) 
+    subprocess.run(f'gmx grompp -f npt.mdp -c {i}_{name}_nvt.gro -r {i}_{name}_nvt.gro -t {i}_{name}_nvt.cpt -p {i}_{name}_topol.top -o {i}_{name}_npt.tpr -maxwarn 1 -n {i}_{name}_index.ndx', shell=True) 
     p = subprocess.run(f'gmx mdrun -v -deffnm {i}_{name}_npt', shell=True) 
     if p.returncode == 0:
         print(f'{i}_{name} NPT job Done!')
@@ -34,7 +34,7 @@ def run_NPT(i, name):
 
 def run_MD(i, name, md_steps):
     subprocess.run(f"sed -ie 's/nsteps     = .*/nsteps     = {md_steps}/g' md.mdp", shell=True)
-    subprocess.run(f'gmx grompp -f md.mdp -c {i}_{name}_npt.gro -r {i}_{name}_npt.gro -t {i}_{name}_npt.cpt -p {i}_{name}_topol.top -o {i}_{name}_md.tpr -n index.ndx', shell=True) 
+    subprocess.run(f'gmx grompp -f md.mdp -c {i}_{name}_npt.gro -r {i}_{name}_npt.gro -t {i}_{name}_npt.cpt -p {i}_{name}_topol.top -o {i}_{name}_md.tpr -n {i}_{name}_index.ndx', shell=True) 
     p = subprocess.run(f'gmx mdrun -v -deffnm {i}_{name}_md', shell=True) 
     if p.returncode == 0:
         print(f'{i}_{name} MD job Done!')
