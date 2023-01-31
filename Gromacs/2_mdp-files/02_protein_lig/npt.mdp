@@ -14,7 +14,7 @@ nstenergy = 500
 nstxout-compressed = 1000
 compressed-x-grps  = system
 ;
-continuation = yes	
+continuation = yes  
 pbc = xyz
 constraints = h-bonds
 cutoff-scheme = Verlet
@@ -28,9 +28,9 @@ rcoulomb = 1.2
 DispCorr = no
 ;
 Tcoupl  = V-rescale
-tc-grps		= protein_lig envir	
-tau_t		= 0.2 0.2          
-ref_t		= 298.15 298.15  
+tc-grps     = protein_lig envir 
+tau_t       = 0.2 0.2          
+ref_t       = 298.15 298.15  
 ;
 Pcoupl     = Berendsen
 pcoupltype = isotropic
