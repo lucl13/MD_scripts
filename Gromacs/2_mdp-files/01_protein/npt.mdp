@@ -1,7 +1,7 @@
 define = -DPOSRES
 integrator = md
 dt         = 0.002  ; ps
-nsteps     = 50000 ; 100ps
+nsteps     = 500000 ; 1000ps
 comm-grps  = system
 energygrps = 
 refcoord-scaling = com
