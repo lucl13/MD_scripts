@@ -2,10 +2,11 @@
 
 import subprocess 
 
-md_time = 60 # ns
-md_steps = int(md_time*1e6/2)  
-   
-names = ['4XYK_17-784-FLC']   
+md_time = 310 # ns
+md_steps = int(md_time*1e6/2)
+temperature = 318.15 #45C
+
+names = ['2p9h_R-IPT_45C']
 
 def if_job_finished(job):
     filename = job + '.log'
@@ -17,6 +18,7 @@ def if_job_finished(job):
         return False
 
 def run_NVT(i, name):
+    subprocess.run(f"sed -ie 's/ref_t       = .*/ref_t       = {temperature} {temperature}/g' nvt.mdp", shell=True)
     subprocess.run(f'gmx grompp -f nvt.mdp -c {i}_{name}_em.gro -r {i}_{name}_em.gro -p {i}_{name}_topol.top -o {i}_{name}_nvt.tpr -n {i}_{name}_index.ndx', shell=True) 
     p = subprocess.run(f'gmx mdrun -v -deffnm {i}_{name}_nvt', shell=True) 
     if p.returncode == 0:
@@ -25,6 +27,7 @@ def run_NVT(i, name):
         raise Exception(f'{i}_{name} NVT job Exception !!!') 
 
 def run_NPT(i, name):
+    subprocess.run(f"sed -ie 's/ref_t       = .*/ref_t       = {temperature} {temperature}/g' npt.mdp", shell=True)
     subprocess.run(f'gmx grompp -f npt.mdp -c {i}_{name}_nvt.gro -r {i}_{name}_nvt.gro -t {i}_{name}_nvt.cpt -p {i}_{name}_topol.top -o {i}_{name}_npt.tpr -maxwarn 1 -n {i}_{name}_index.ndx', shell=True) 
     p = subprocess.run(f'gmx mdrun -v -deffnm {i}_{name}_npt', shell=True) 
     if p.returncode == 0:
@@ -33,13 +36,14 @@ def run_NPT(i, name):
         raise Exception(f'{i}_{name} NPT job Exception !!!') 
 
 def run_MD(i, name, md_steps):
+    subprocess.run(f"sed -ie 's/ref_t       = .*/ref_t       = {temperature} {temperature}/g' md.mdp", shell=True)
     subprocess.run(f"sed -ie 's/nsteps     = .*/nsteps     = {md_steps}/g' md.mdp", shell=True)
-    subprocess.run(f'gmx grompp -f md.mdp -c {i}_{name}_npt.gro -r {i}_{name}_npt.gro -t {i}_{name}_npt.cpt -p {i}_{name}_topol.top -o {i}_{name}_md.tpr -n {i}_{name}_index.ndx', shell=True) 
-    p = subprocess.run(f'gmx mdrun -v -deffnm {i}_{name}_md', shell=True) 
+    subprocess.run(f'gmx grompp -f md.mdp -c {i}_{name}_npt.gro -r {i}_{name}_npt.gro -t {i}_{name}_npt.cpt -p {i}_{name}_topol.top -o {i}_{name}_md.tpr -n {i}_{name}_index.ndx -maxwarn 2', shell=True)
+    p = subprocess.run(f'gmx mdrun -v -deffnm {i}_{name}_md', shell=True)
     if p.returncode == 0:
         print(f'{i}_{name} MD job Done!')
-    else: 
-        raise Exception(f'{i}_{name} MD job Exception !!!') 
+    else:
+        raise Exception(f'{i}_{name} MD job Exception !!!')
 
 
 for name in names:         
