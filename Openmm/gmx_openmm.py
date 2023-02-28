@@ -130,6 +130,7 @@ class GMXSimulation(object):
         
         self.initialize_random_setup(self.gro_file, self.temperature * u.kelvin)
 
+        self.simulation_cst.minimizeEnergy()
         self.simulation_cst.step(n_steps)
         self.simulation_cst.saveCheckpoint(f'{self.output_name}_cst.chk')
         
