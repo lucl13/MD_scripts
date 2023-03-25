@@ -76,7 +76,19 @@ system = psf.createSystem(**nboptions)
 #
 if inputs.pcouple == 'yes':      system = barostat(system, inputs)
 if inputs.rest == 'yes':         system = restraints(system, crd, inputs)
-integrator = LangevinIntegrator(inputs.temp*kelvin, inputs.fric_coeff/picosecond, inputs.dt*picoseconds)
+
+    
+def build_integrator(temperature, timestep):
+    integrator = openmmtools.integrators.VVVRIntegrator(
+        temperature,
+        1.0 / unit.picoseconds,
+        timestep
+    )
+    integrator.setConstraintTolerance(0.00001)
+    return integrator
+
+#integrator = LangevinIntegrator(inputs.temp*kelvin, inputs.fric_coeff/picosecond, inputs.dt*picoseconds)
+integrator = build_integrator(inputs.temp*kelvin, inputs.dt*picoseconds)
 
 # Set platform
 DEFAULT_PLATFORMS = 'CUDA', 'OpenCL', 'CPU'

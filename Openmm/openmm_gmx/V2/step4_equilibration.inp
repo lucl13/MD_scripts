@@ -2,7 +2,7 @@ mini_nstep  = 5000                              # Number of steps for minimizati
 mini_Tol    = 100.0                             # Minimization energy tolerance
                                          
 gen_vel     = yes                               # Generate initial velocities
-gen_temp    = 303.15                            # Temperature for generating initial velocities (K)
+gen_temp    = 298.15                            # Temperature for generating initial velocities (K)
                                          
 nstep       = 125000                            # Number of steps to run
 dt          = 0.001                             # Time-step (ps)

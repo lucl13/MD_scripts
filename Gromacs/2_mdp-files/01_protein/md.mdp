@@ -2,8 +2,8 @@ define =
 integrator = md
 dt         = 0.002  ; ps
 nsteps     = 50000000 ; 100ns 
-;comm-grps  = protein
-;comm-mode  = angular
+comm-grps  = protein
+comm-mode  = angular
 energygrps = 
 ;
 nstxout = 0
