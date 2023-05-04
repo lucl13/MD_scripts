@@ -4,7 +4,7 @@ import subprocess
 
 md_time = 310 # ns
 md_steps = int(md_time*1e6/2)
-temperature = 318.15 #45C
+temperature = 298.15 #25C
 
 names = ['2p9h_R-IPT_45C']
 
