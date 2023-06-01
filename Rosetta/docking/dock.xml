@@ -29,17 +29,17 @@
 		</SCORINGGRIDS>
 
 		<MOVERS>
-			<StartFrom name="StartFrom" chain="X" use_nbr="1" >
-				<Coordinates x="9.029" y="-5.164" z="-6.667" />
-			</StartFrom>
-			<Transform name="transform" chain="X" box_size="7.0" move_distance="0.2" angle="20" cycles="500" repeats="1" temperature="5"/>
+			<Transform name="transform" chain="X" box_size="12.0" move_distance="0.2" angle="10" cycles="500" repeats="20" temperature="5"/>
 			<HighResDocker name="high_res_docker" cycles="6" repack_every_Nth="3" scorefxn="ligand_soft_rep" movemap_builder="docking"/>
 			<FinalMinimizer name="final" scorefxn="hard_rep" movemap_builder="final"/>
 			<InterfaceScoreCalculator name="add_scores" chains="X" scorefxn="hard_rep"/> 
+			<StartFrom name="premove" chain="X" use_nbr="False" >
+				<Coordinates x="xx" y="xx" z="xx"/> 
+			</StartFrom>
 		</MOVERS>
 
 		<PROTOCOLS>
-			<Add mover_name="StartFrom"/>
+			<Add mover_name="premove"/>
 			<Add mover_name="transform"/>
 			<Add mover_name="high_res_docker"/>
 			<Add mover_name="final"/>
