@@ -24,6 +24,7 @@ from omm_rewrap import *
 from simtk.unit import *
 from simtk.openmm import *
 from simtk.openmm.app import *
+import openmmtools
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--platform', nargs=1, help='OpenMM platform (default: CUDA or OpenCL)')
